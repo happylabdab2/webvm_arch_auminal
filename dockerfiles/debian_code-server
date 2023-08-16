@@ -1,9 +1,8 @@
 FROM --platform=i386 i386/debian:bookworm
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get clean && apt-get update && apt-get -y upgrade
-RUN apt-get -y install build-essential libpam0g-dev libxcb-xkb-dev openbox curl git nodejs npm
+RUN apt-get -y install nodejs npm
 WORKDIR /root/
-RUN git clone --recurse-submodules https://github.com/fairyglade/ly && cd ly && make && make install && cd .. && rm -rf ly
 ENV FORCE_NODE_VERSION 18
 RUN npm i code-server --unsafe-perm
 ENV FORCE_NODE_VERSION=
