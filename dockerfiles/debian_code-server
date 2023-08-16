@@ -3,7 +3,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get clean && apt-get update && apt-get -y upgrade
 WORKDIR /root/
 RUN apt-get -y install curl xz-utils
-RUN curl -fsSLO --compressed https://unofficial-builds.nodejs.org/download/release/v16.20.2/node-v16.20.2-linux-x86.tar.gz && tar -xJf "node-v16.20.2-linux-x86.tar.gz" -C /usr/local --strip-components=1 --no-same-owner && ln -s /usr/local/bin/node /usr/local/bin/nodejs
+RUN curl -fsSLO --compressed https://unofficial-builds.nodejs.org/download/release/v16.20.2/node-v16.20.2-linux-x86.tar.xz && tar -xJf "node-v16.20.2-linux-x86.tar.gz" -C /usr/local --strip-components=1 --no-same-owner && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 RUN npm i code-server --unsafe-perm
 RUN rm -rf /var/lib/apt/lists/*
 ENV HOME="/root" TERM="xterm" USER="root" SHELL="/bin/bash" EDITOR="nano" LANG="en_US.UTF-8" LC_ALL="C"
