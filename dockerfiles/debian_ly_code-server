@@ -1,7 +1,7 @@
 FROM --platform=i386 i386/debian:stable
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get clean && apt-get update && apt-get -y upgrade
-RUN apt-get -y install build-essential libpam0g-dev libxcb-xkb-dev openbox curl
+RUN apt-get -y install build-essential libpam0g-dev libxcb-xkb-dev openbox curl git
 WORKDIR /root/
 RUN git clone --recurse-submodules https://github.com/fairyglade/ly && cd ly && make && make install && cd .. && rm -rf ly
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && apt-get install -y nodejs
