@@ -38,6 +38,7 @@
     <script src="serviceWorker.js"></script>
     <script src="./xterm/xterm.js"></script>
     <script src="./xterm/xterm-addon-fit.js"></script>
+    <script src="./xterm/xterm-addon-image.js"></script>
     <script src="network.js"></script>
   </head>
 
@@ -224,6 +225,8 @@ __      __   _  __   ____  __
 	var term = new Terminal({cursorBlink:true,convertEol:true, fontFamily:"monospace", fontWeight: 400, fontWeightBold: 700});
 	var fitAddon = new FitAddon.FitAddon();
 	term.loadAddon(fitAddon);
+	var imageAddon = new ImageAddon.ImageAddon();
+	term.loadAddon(imageAddon);
 	term.open(consoleDiv);
 	term.scrollToTop();
 
