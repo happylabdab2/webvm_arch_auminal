@@ -1,10 +1,15 @@
 FROM --platform=i386 i386/debian:bookworm-slim
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get clean && apt-get update && apt-get -y upgrade
-RUN apt-get -y install build-essential dh-autoreconf openbox xterm nano git
+RUN apt-get -y install wget
+RUN wget -O libxfont1.deb http://launchpadlibrarian.net/347400108/libxfont1_1.5.1-1ubuntu0.16.04.4_i386.deb
+RUN wget -O libxfont1-dev.deb http://launchpadlibrarian.net/347400106/libxfont1-dev_1.5.1-1ubuntu0.16.04.4_i386.deb
+RUN apt-get -y install ./libxfont1.deb && apt-get -y install ./libxfont1-dev.deb
+RUN rm ./libxfont1.deb && rm ./libxfont1-dev.deb
+RUN apt-get -y install build-essential dh-autoreconf xutils-dev xtrans-dev pkg-config libpixman-1-dev libmd-dev x11proto-dev libxkbfile-dev libfontenc-dev libxau-dev libsixel-dev openbox xterm nano git
 WORKDIR /root/
-RUN git clone --recurse-submodules https://github.com/saitoha/xserver-SIXEL && cd xserver-SIXEL && ./autogen.sh && make && make install && cd .. && rm -rf xserver-SIXEL
-RUN apt-get -y remove build-essential git && apt-get -y autoremove && apt-get -y autoclean
+RUN git clone --recurse-submodules https://github.com/saitoha/xserver-SIXEL && cd xserver-SIXEL && sed -i 's/-Ofast/-Ofast -Wno-error/g' build-xsixel.sh && ./build-xsixel.sh && make install && cd .. && rm -rf xserver-SIXEL
+RUN apt-get -y remove build-essential dh-autoreconf xutils-dev xtrans-dev pkg-config libpixman-1-dev libmd-dev x11proto-dev libxkbfile-dev libfontenc-dev libxau-dev libsixel-dev libxfont1 libxfont1-dev git && apt-get -y autoremove && apt-get -y autoclean
 RUN rm -rf /var/lib/apt/lists/*
 ENV HOME="/root" TERM="xterm" USER="root" SHELL="/bin/bash" EDITOR="nano" LANG="en_US.UTF-8" LC_ALL="C"
 CMD [ "/bin/bash" ]
