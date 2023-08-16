@@ -1,2 +1,2 @@
-FROM --platform=i386 node:lts
+FROM --platform=i386 stirenbenzen/node:v16.13.0-386
 CMD [ "/bin/bash" ]
