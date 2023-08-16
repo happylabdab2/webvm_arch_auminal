@@ -2,7 +2,7 @@ FROM --platform=i386 i386/debian:bookworm-slim
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get clean && apt-get update && apt-get -y upgrade
 WORKDIR /root/
-RUN apt-get -y install curl xz-utils python3-minimal build-essential
+RUN apt-get --no-install-recommends -y install curl xz-utils python3-minimal build-essential
 RUN curl -fsSLO --compressed https://unofficial-builds.nodejs.org/download/release/v16.20.2/node-v16.20.2-linux-x86.tar.xz && tar -xJf "node-v16.20.2-linux-x86.tar.xz" -C /usr/local --strip-components=1 --no-same-owner && ln -s /usr/local/bin/node /usr/local/bin/nodejs && rm -rf node-v16.20.2-linux-x86.tar.xz
 RUN npm i -g yarn --unsafe-perm --allow-root
 RUN yarn global add code-server --prefix /usr/local
