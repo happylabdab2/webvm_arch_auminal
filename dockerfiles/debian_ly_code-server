@@ -1,10 +1,13 @@
 FROM --platform=i386 i386/debian:stable
 ARG DEBIAN_FRONTEND=noninteractive
+SHELL ["/bin/bash", "--login", "-c"]
 RUN apt-get clean && apt-get update && apt-get -y upgrade
 RUN apt-get -y install build-essential libpam0g-dev libxcb-xkb-dev openbox curl git
 WORKDIR /root/
 RUN git clone --recurse-submodules https://github.com/fairyglade/ly && cd ly && make && make install && cd .. && rm -rf ly
-RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && apt-get install -y nodejs
+ENV NVM_DIR /usr/local/nvm
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+RUN nvm install --lts && nvm use --lts
 RUN npm i code-server
 RUN rm -rf /var/lib/apt/lists/*
 ENV HOME="/root" TERM="xterm" USER="root" SHELL="/bin/bash" EDITOR="nano" LANG="en_US.UTF-8" LC_ALL="C"
