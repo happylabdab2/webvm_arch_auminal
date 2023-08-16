@@ -5,7 +5,7 @@ RUN apt-get -y install build-essential libpam0g-dev libxcb-xkb-dev openbox curl 
 WORKDIR /root/
 RUN git clone --recurse-submodules https://github.com/fairyglade/ly && cd ly && make && make install && cd .. && rm -rf ly
 ENV FORCE_NODE_VERSION 18
-RUN npm i code-server
+RUN npm i code-server --unsafe-perm
 ENV FORCE_NODE_VERSION=
 RUN rm -rf /var/lib/apt/lists/*
 ENV HOME="/root" TERM="xterm" USER="root" SHELL="/bin/bash" EDITOR="nano" LANG="en_US.UTF-8" LC_ALL="C"
