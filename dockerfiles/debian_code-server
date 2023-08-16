@@ -4,7 +4,7 @@ RUN apt-get clean && apt-get update && apt-get -y upgrade
 WORKDIR /root/
 RUN apt-get -y install curl xz-utils python3-minimal build-essential
 RUN curl -fsSLO --compressed https://unofficial-builds.nodejs.org/download/release/v16.20.2/node-v16.20.2-linux-x86.tar.xz && tar -xJf "node-v16.20.2-linux-x86.tar.xz" -C /usr/local --strip-components=1 --no-same-owner && ln -s /usr/local/bin/node /usr/local/bin/nodejs && rm -rf node-v16.20.2-linux-x86.tar.xz
-RUN npm i -g code-server --unsafe-perm
+RUN npm i -g code-server yazl yauzl @microsoft/1ds-core-js minimist --unsafe-perm
 RUN apt-get -y remove curl xz-utils python3-minimal build-essential && apt-get -y autoremove && apt-get -y autoclean
 RUN rm -rf /var/lib/apt/lists/*
 ENV HOME="/root" TERM="xterm" USER="root" SHELL="/bin/bash" EDITOR="nano" LANG="en_US.UTF-8" LC_ALL="C"
